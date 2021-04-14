@@ -2,3 +2,4 @@
 # sshd_config/vars/vars_Debian.yml
 
 sshd_service: 'sshd'
+sshd_acceptenv: 'LANG LC_*'
