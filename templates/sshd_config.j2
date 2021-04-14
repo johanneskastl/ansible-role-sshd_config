@@ -1,0 +1,128 @@
+#
+# {{ ansible_managed }}
+#
+# This is the sshd server system-wide configuration file.  See
+# sshd_config(5) for more information.
+
+# This sshd was compiled with PATH=/usr/bin:/bin:/usr/sbin:/sbin
+
+# The strategy used for options in the default sshd_config shipped with
+# OpenSSH is to specify options with their default value where
+# possible, but leave them commented.  Uncommented options override the
+# default value.
+
+Port {{ sshd_port }}
+AddressFamily {{ sshd_addressfamily }}
+ListenAddress 0.0.0.0
+ListenAddress ::
+
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+# Ciphers and keying
+RekeyLimit {{ sshd_rekeylimit }}
+
+# Logging
+SyslogFacility {{ sshd_syslogfacility }}
+LogLevel {{ sshd_loglevel }}
+
+# Authentication:
+
+LoginGraceTime {{ sshd_logingracetime }}
+PermitRootLogin {{ sshd_permitrootlogin }}
+StrictModes {{ sshd_strictmodes }}
+MaxAuthTries {{ sshd_maxauthtries }}
+MaxSessions {{ sshd_maxsessions }}
+
+PubkeyAuthentication {{ sshd_pubkeyauthentication }}
+
+# The default is to check both .ssh/authorized_keys and .ssh/authorized_keys2
+# but this is overridden so installations will only check .ssh/authorized_keys
+AuthorizedKeysFile	{{ sshd_authorizedkeysfile }}
+
+AuthorizedPrincipalsFile {{ sshd_authorizedprincipalsfile }}
+
+AuthorizedKeysCommand {{ sshd_authorizedkeyscommand }}
+AuthorizedKeysCommandUser {{ sshd_authorizedkeyscommanduser }}
+
+# For this to work you will also need host keys in /etc/ssh/ssh_known_hosts
+HostbasedAuthentication {{ sshd_hostbasedauthentication }}
+# Change to yes if you don't trust ~/.ssh/known_hosts for
+# HostbasedAuthentication
+IgnoreUserKnownHosts {{ sshd_ignoreuserknownhosts }}
+# Don't read the user's ~/.rhosts and ~/.shosts files
+IgnoreRhosts {{ sshd_ignorerhosts }}
+
+# To disable tunneled clear text passwords, change to no here!
+PasswordAuthentication {{ sshd_passwordauthentication }}
+PermitEmptyPasswords {{ sshd_permitemptypasswords }}
+
+# Change to no to disable s/key passwords
+ChallengeResponseAuthentication {{ sshd_challengeresponseauthentication }}
+
+# Kerberos options
+KerberosAuthentication {{ sshd_kerberosauthentication }}
+KerberosOrLocalPasswd {{ sshd_kerberosorlocalpasswd }}
+KerberosTicketCleanup {{ sshd_kerberosticketcleanup }}
+KerberosGetAFSToken {{ sshd_kerberosgetafstoken }}
+
+# GSSAPI options
+GSSAPIAuthentication {{ sshd_gssapiauthentication }}
+GSSAPICleanupCredentials {{ sshd_gssapicleanupcredentials }}
+{% if sshd_gssapistrictacceptorcheck is defined %}
+GSSAPIStrictAcceptorCheck {{ sshd_gssapistrictacceptorcheck }}
+{% endif %}
+{% if sshd_gssapikeyexchange is defined %}
+GSSAPIKeyExchange {{ sshd_gssapikeyexchange }}
+{% endif %}
+
+# Set this to 'yes' to enable PAM authentication, account processing,
+# and session processing. If this is enabled, PAM authentication will
+# be allowed through the ChallengeResponseAuthentication and
+# PasswordAuthentication.  Depending on your PAM configuration,
+# PAM authentication via ChallengeResponseAuthentication may bypass
+# the setting of "PermitRootLogin without-password".
+# If you just want the PAM account and session checks to run without
+# PAM authentication, then enable this but set PasswordAuthentication
+# and ChallengeResponseAuthentication to 'no'.
+UsePAM {{ sshd_usepam }}
+
+AllowAgentForwarding {{ sshd_allowagentforwarding }}
+AllowTcpForwarding {{ sshd_allowtcpforwarding }}
+GatewayPorts {{ sshd_gatewayports }}
+X11Forwarding {{ sshd_x11forwarding }}
+X11DisplayOffset {{ sshd_x11displayoffset }}
+X11UseLocalhost {{ sshd_x11uselocalhost }}
+PermitTTY {{ sshd_permittty }}
+PrintMotd {{ sshd_printmotd }}
+PrintLastLog {{ sshd_printlastlog }}
+TCPKeepAlive {{ sshd_tcpkeepalive }}
+PermitUserEnvironment {{ sshd_permituserenvironment }}
+Compression {{ sshd_compression }}
+ClientAliveInterval {{ sshd_clientaliveinterval }}
+ClientAliveCountMax {{ sshd_clientalivecountmax }}
+UseDNS {{ sshd_usedns }}
+PidFile {{ sshd_pidfile }}
+MaxStartups {{ sshd_maxstartups }}
+PermitTunnel {{ sshd_permittunnel }}
+ChrootDirectory {{ sshd_chrootdirectory }}
+VersionAddendum {{ sshd_versionaddendum }}
+
+# no default banner path
+Banner {{ sshd_banner }}
+
+{% if sshd_acceptenv is defined %}
+# Allow client to pass locale environment variables
+AcceptEnv {{ sshd_acceptenv }}
+
+{% endif %}
+# override default of no subsystems
+Subsystem	{{ sshd_subsystem }}
+
+# Example of overriding settings on a per-user basis
+#Match User anoncvs
+#	X11Forwarding no
+#	AllowTcpForwarding no
+#	PermitTTY no
+#	ForceCommand cvs server
