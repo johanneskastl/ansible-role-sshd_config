@@ -1,5 +1,16 @@
 ---
 # sshd_config/vars/vars_Debian.yml
 
+# name of the sshd systemd service
 sshd_service: 'sshd'
+
+# openSSH server settings
+sshd_authorizedkeysfile: '.ssh/authorized_keys .ssh/authorized_keys2'
+sshd_challengeresponseauthentication: 'no'
+sshd_gssapistrictacceptorcheck: 'yes'
+sshd_gssapikeyexchange: 'no'
+sshd_usepam: 'yes'
+sshd_x11forwarding: 'yes'
+sshd_printmotd: 'no'
 sshd_acceptenv: 'LANG LC_*'
+sshd_subsystem: 'sftp /usr/lib/openssh/sftp-server'
