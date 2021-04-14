@@ -1,0 +1,7 @@
+---
+# sshd_config/handlers/main.yml
+
+- name: 'Restart the sshd service'
+  service:
+    name: "{{ sshd_service }}"
+    state: 'restarted'
