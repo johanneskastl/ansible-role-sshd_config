@@ -1,0 +1,18 @@
+---
+# sshd_config/tasks/main.yml
+
+- name: "Load variables"
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "vars_{{ ansible_distribution }}.yml"
+    - "vars_{{ ansible_os_family }}.yml"
+
+- name: 'Modify the sshd_config file'
+  template:
+    src: 'sshd_config.j2'
+    dest: "{{ path_to_sshd_config }}"
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify:
+    - 'Restart the sshd service'
