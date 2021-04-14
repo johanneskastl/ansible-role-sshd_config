@@ -1,0 +1,5 @@
+---
+# sshd_config/defaults/main.yml
+
+# path to sshd_config
+path_to_sshd_config: '/etc/ssh/sshd_config'
