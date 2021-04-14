@@ -3,3 +3,62 @@
 
 # path to sshd_config
 path_to_sshd_config: '/etc/ssh/sshd_config'
+
+# openSSH server settings
+sshd_port: 22
+sshd_addressfamily: 'any'
+sshd_listen_address:
+  - '0.0.0.0'
+  - '::'
+sshd_hostkey:
+  - '/etc/ssh/ssh_host_rsa_key'
+  - '/etc/ssh/ssh_host_ecdsa_key'
+  - '/etc/ssh/ssh_host_ed25519_key'
+sshd_rekeylimit: 'default none'
+sshd_syslogfacility: 'AUTH'
+sshd_loglevel: 'INFO'
+sshd_logingracetime: '2m'
+sshd_permitrootlogin: 'prohibit-password'
+sshd_strictmodes: 'yes'
+sshd_maxauthtries: 6
+sshd_maxsessions: 10
+sshd_pubkeyauthentication: 'yes'
+sshd_authorizedkeysfile: '.ssh/authorized_keys'
+sshd_authorizedprincipalsfile: 'none'
+sshd_authorizedkeyscommand: 'none'
+sshd_authorizedkeyscommanduser: 'nobody'
+sshd_hostbasedauthentication: 'no'
+sshd_ignoreuserknownhosts: 'no'
+sshd_ignorerhosts: 'yes'
+sshd_passwordauthentication: 'yes'
+sshd_permitemptypasswords: 'no'
+sshd_challengeresponseauthentication: 'yes'
+sshd_kerberosauthentication: 'no'
+sshd_kerberosorlocalpasswd: 'yes'
+sshd_kerberosticketcleanup: 'yes'
+sshd_kerberosgetafstoken: 'no'
+sshd_gssapiauthentication: 'no'
+sshd_gssapicleanupcredentials: 'yes'
+sshd_usepam: 'no'
+sshd_allowagentforwarding: 'yes'
+sshd_allowtcpforwarding: 'yes'
+sshd_gatewayports: 'no'
+sshd_x11forwarding: 'no'
+sshd_x11displayoffset: 10
+sshd_x11uselocalhost: 'yes'
+sshd_permittty: 'yes'
+sshd_printmotd: 'yes'
+sshd_printlastlog: 'yes'
+sshd_tcpkeepalive: 'yes'
+sshd_permituserenvironment: 'no'
+sshd_compression: 'delayed'
+sshd_clientaliveinterval: 0
+sshd_clientalivecountmax: 3
+sshd_usedns: 'no'
+sshd_pidfile: '/var/run/sshd.pid'
+sshd_maxstartups: '10:30:100'
+sshd_permittunnel: 'no'
+sshd_chrootdirectory: 'none'
+sshd_versionaddendum: 'none'
+sshd_banner: 'none'
+sshd_subsystem: 'sftp /usr/libexec/sftp-server'
