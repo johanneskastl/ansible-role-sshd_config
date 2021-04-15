@@ -7,6 +7,15 @@
     - "vars_{{ ansible_distribution }}.yml"
     - "vars_{{ ansible_os_family }}.yml"
 
+# code from https://www.samdarwin.com/ansible-default-vars/
+- name: 'set facts based on defaults'
+  set_fact:
+    "{{ item[8:] }}": "{{ lookup('vars', item) }}"
+  loop: "{{ vars | list }}"
+  when:
+    - item is match("^default_")
+    - vars[item[8:]] is undefined
+
 - name: 'Modify the sshd_config file'
   template:
     src: 'sshd_config.j2'
