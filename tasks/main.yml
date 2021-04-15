@@ -7,6 +7,20 @@
     - "vars_{{ ansible_distribution }}.yml"
     - "vars_{{ ansible_os_family }}.yml"
 
+# code from https://www.samdarwin.com/ansible-default-vars/
+#   ansible converts 'yes'/'no' to Booleans with set_fact.
+#   This cannot be prevented, so the template later converts
+#   Booleans back to 'yes'/'no' for those parameters that
+#   need them.
+#   https://github.com/ansible/ansible/issues/11905
+- name: 'set facts based on defaults'
+  set_fact:
+    "{{ item[8:] }}": "{{ lookup('vars', item) }}"
+  loop: "{{ vars | list }}"
+  when:
+    - item is match("^default_")
+    - vars[item[8:]] is undefined
+
 - name: 'Modify the sshd_config file'
   template:
     src: 'sshd_config.j2'

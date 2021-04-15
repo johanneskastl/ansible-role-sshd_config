@@ -1,6 +1,10 @@
 #
 # {{ ansible_managed }}
 #
+{# ansible converts 'yes'/'no' to Booleans with set_fact. #}
+{# This cannot be prevented, so the template later converts #}
+{# Booleans back to 'yes'/'no' for those parameters that #}
+{# need them. #}
 # This is the sshd server system-wide configuration file.  See
 # sshd_config(5) for more information.
 
@@ -31,11 +35,11 @@ LogLevel {{ sshd_loglevel }}
 
 LoginGraceTime {{ sshd_logingracetime }}
 PermitRootLogin {{ sshd_permitrootlogin }}
-StrictModes {{ sshd_strictmodes }}
+StrictModes {{ sshd_strictmodes | bool | ternary('yes', 'no') }}
 MaxAuthTries {{ sshd_maxauthtries }}
 MaxSessions {{ sshd_maxsessions }}
 
-PubkeyAuthentication {{ sshd_pubkeyauthentication }}
+PubkeyAuthentication {{ sshd_pubkeyauthentication | bool | ternary('yes', 'no') }}
 
 # The default is to check both .ssh/authorized_keys and .ssh/authorized_keys2
 # but this is overridden so installations will only check .ssh/authorized_keys
@@ -47,34 +51,34 @@ AuthorizedKeysCommand {{ sshd_authorizedkeyscommand }}
 AuthorizedKeysCommandUser {{ sshd_authorizedkeyscommanduser }}
 
 # For this to work you will also need host keys in /etc/ssh/ssh_known_hosts
-HostbasedAuthentication {{ sshd_hostbasedauthentication }}
+HostbasedAuthentication {{ sshd_hostbasedauthentication | bool | ternary('yes', 'no') }}
 # Change to yes if you don't trust ~/.ssh/known_hosts for
 # HostbasedAuthentication
-IgnoreUserKnownHosts {{ sshd_ignoreuserknownhosts }}
+IgnoreUserKnownHosts {{ sshd_ignoreuserknownhosts | bool | ternary('yes', 'no') }}
 # Don't read the user's ~/.rhosts and ~/.shosts files
-IgnoreRhosts {{ sshd_ignorerhosts }}
+IgnoreRhosts {{ sshd_ignorerhosts | bool | ternary('yes', 'no') }}
 
 # To disable tunneled clear text passwords, change to no here!
-PasswordAuthentication {{ sshd_passwordauthentication }}
-PermitEmptyPasswords {{ sshd_permitemptypasswords }}
+PasswordAuthentication {{ sshd_passwordauthentication | bool | ternary('yes', 'no') }}
+PermitEmptyPasswords {{ sshd_permitemptypasswords | bool | ternary('yes', 'no') }}
 
 # Change to no to disable s/key passwords
-ChallengeResponseAuthentication {{ sshd_challengeresponseauthentication }}
+ChallengeResponseAuthentication {{ sshd_challengeresponseauthentication | bool | ternary('yes', 'no') }}
 
 # Kerberos options
-KerberosAuthentication {{ sshd_kerberosauthentication }}
-KerberosOrLocalPasswd {{ sshd_kerberosorlocalpasswd }}
-KerberosTicketCleanup {{ sshd_kerberosticketcleanup }}
-KerberosGetAFSToken {{ sshd_kerberosgetafstoken }}
+KerberosAuthentication {{ sshd_kerberosauthentication | bool | ternary('yes', 'no') }}
+KerberosOrLocalPasswd {{ sshd_kerberosorlocalpasswd | bool | ternary('yes', 'no') }}
+KerberosTicketCleanup {{ sshd_kerberosticketcleanup | bool | ternary('yes', 'no') }}
+KerberosGetAFSToken {{ sshd_kerberosgetafstoken | bool | ternary('yes', 'no') }}
 
 # GSSAPI options
-GSSAPIAuthentication {{ sshd_gssapiauthentication }}
-GSSAPICleanupCredentials {{ sshd_gssapicleanupcredentials }}
+GSSAPIAuthentication {{ sshd_gssapiauthentication | bool | ternary('yes', 'no') }}
+GSSAPICleanupCredentials {{ sshd_gssapicleanupcredentials | bool | ternary('yes', 'no') }}
 {% if sshd_gssapistrictacceptorcheck is defined %}
-GSSAPIStrictAcceptorCheck {{ sshd_gssapistrictacceptorcheck }}
+GSSAPIStrictAcceptorCheck {{ sshd_gssapistrictacceptorcheck | bool | ternary('yes', 'no') }}
 {% endif %}
 {% if sshd_gssapikeyexchange is defined %}
-GSSAPIKeyExchange {{ sshd_gssapikeyexchange }}
+GSSAPIKeyExchange {{ sshd_gssapikeyexchange | bool | ternary('yes', 'no') }}
 {% endif %}
 
 # Set this to 'yes' to enable PAM authentication, account processing,
@@ -86,26 +90,26 @@ GSSAPIKeyExchange {{ sshd_gssapikeyexchange }}
 # If you just want the PAM account and session checks to run without
 # PAM authentication, then enable this but set PasswordAuthentication
 # and ChallengeResponseAuthentication to 'no'.
-UsePAM {{ sshd_usepam }}
+UsePAM {{ sshd_usepam | bool | ternary('yes', 'no') }}
 
-AllowAgentForwarding {{ sshd_allowagentforwarding }}
-AllowTcpForwarding {{ sshd_allowtcpforwarding }}
-GatewayPorts {{ sshd_gatewayports }}
-X11Forwarding {{ sshd_x11forwarding }}
+AllowAgentForwarding {{ sshd_allowagentforwarding | bool | ternary('yes', 'no') }}
+AllowTcpForwarding {{ sshd_allowtcpforwarding | bool | ternary('yes', 'no') }}
+GatewayPorts {{ sshd_gatewayports | bool | ternary('yes', 'no') }}
+X11Forwarding {{ sshd_x11forwarding | bool | ternary('yes', 'no') }}
 X11DisplayOffset {{ sshd_x11displayoffset }}
-X11UseLocalhost {{ sshd_x11uselocalhost }}
-PermitTTY {{ sshd_permittty }}
-PrintMotd {{ sshd_printmotd }}
-PrintLastLog {{ sshd_printlastlog }}
-TCPKeepAlive {{ sshd_tcpkeepalive }}
-PermitUserEnvironment {{ sshd_permituserenvironment }}
+X11UseLocalhost {{ sshd_x11uselocalhost | bool | ternary('yes', 'no') }}
+PermitTTY {{ sshd_permittty | bool | ternary('yes', 'no') }}
+PrintMotd {{ sshd_printmotd | bool | ternary('yes', 'no') }}
+PrintLastLog {{ sshd_printlastlog | bool | ternary('yes', 'no') }}
+TCPKeepAlive {{ sshd_tcpkeepalive | bool | ternary('yes', 'no') }}
+PermitUserEnvironment {{ sshd_permituserenvironment | bool | ternary('yes', 'no') }}
 Compression {{ sshd_compression }}
 ClientAliveInterval {{ sshd_clientaliveinterval }}
 ClientAliveCountMax {{ sshd_clientalivecountmax }}
-UseDNS {{ sshd_usedns }}
+UseDNS {{ sshd_usedns | bool | ternary('yes', 'no') }}
 PidFile {{ sshd_pidfile }}
 MaxStartups {{ sshd_maxstartups }}
-PermitTunnel {{ sshd_permittunnel }}
+PermitTunnel {{ sshd_permittunnel | bool | ternary('yes', 'no') }}
 ChrootDirectory {{ sshd_chrootdirectory }}
 VersionAddendum {{ sshd_versionaddendum }}
 
