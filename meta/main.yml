@@ -1,5 +1,6 @@
 galaxy_info:
   role_name: 'sshd_config'
+  namespace: 'johanneskastl'
   author: 'Johannes Kastl'
   description: "Modify a machine's sshd_config file"
   company: 'B1 Systems GmbH'
