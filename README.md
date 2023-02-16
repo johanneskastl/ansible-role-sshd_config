@@ -23,7 +23,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - { role: 'johanneskastl.sshd_config' }
+         - role: 'johanneskastl.sshd_config'
 
 License
 -------
