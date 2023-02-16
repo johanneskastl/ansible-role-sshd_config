@@ -13,7 +13,7 @@
 #   Booleans back to 'yes'/'no' for those parameters that
 #   need them.
 #   https://github.com/ansible/ansible/issues/11905
-- name: 'set facts based on defaults'
+- name: 'Set facts based on defaults'
   ansible.builtin.set_fact:
     "{{ item[8:] }}": "{{ lookup('vars', item) }}"
   loop: "{{ vars | list }}"
