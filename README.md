@@ -1,3 +1,5 @@
+![Ansible Lint](https://github.com/johanneskastl/ansible-role-sshd_config/workflows/Ansible%20Lint/badge.svg)
+
 sshd_config
 =========
 
